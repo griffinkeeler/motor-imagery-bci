@@ -1,5 +1,5 @@
 import mne
-from load_data import load_subject_data
+from load_eeg_data import load_raw_eeg
 
 
 def create_info_object(ch_names: list,
@@ -53,7 +53,7 @@ def create_raw_object(filepath: str):
         Raw object from a numpy array.
     """
     # Load the subject's data to create the raw MNE object
-    eeg_data, sfreq, channel_names = load_subject_data(filepath)
+    eeg_data, sfreq, channel_names = load_raw_eeg(filepath)
 
     # Create the MNE info object containing the subject's EEG recording
     # metadata
