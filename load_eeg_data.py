@@ -103,7 +103,7 @@ def convert_channel_labels(raw_channels):
     return [str(ch[0]) for ch in raw_channels]
 
 
-def load_subject_data(filepath: str):
+def load_raw_eeg(filepath: str):
     """
     Loads the continuous EEG data, sampling frequency, and
     channel names from a subject.
