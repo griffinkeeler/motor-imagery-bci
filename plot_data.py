@@ -23,8 +23,10 @@ def plot_raw(raw_object,
     )
     plt.show()
 
+# Creates a raw object for subject AA
 aa_raw = create_raw_object('data/raw/aa.mat')
 
+# Plots the EEG data for subject AA
 plot_raw(raw_object=aa_raw,
          n_channels=10,
          subject='AA')
