@@ -1,7 +1,6 @@
 import numpy as np
 from load_eeg_data import load_raw_data
 
-
 def load_events(filepath: str):
     """
     Loads the labeled cues where each event occurred
@@ -43,5 +42,3 @@ def load_events(filepath: str):
     class_labels = labels[labeled_mask].astype(int)
 
     return labeled_positions, class_labels
-
-
