@@ -9,6 +9,7 @@ def create_epoch(raw,
                  ):
     """
     Creates epochs from a raw EEG signal and the event markers.
+
     Args:
         raw (mne.io.Raw): The continuos EEG data as an MNE Raw object.
         events (ndarray): A NumPy array of shape (n_events, 3).
