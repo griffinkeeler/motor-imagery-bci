@@ -1,4 +1,7 @@
 import mne
+from build_mne_raw import create_raw_object
+from load_events_data import load_events
+from build_mne_events import create_events_array
 
 
 def create_epoch(raw,
@@ -34,3 +37,35 @@ def create_epoch(raw,
 
     return epochs
 
+
+def create_subject_epochs(filepath: str):
+    """
+    Loads, preprocesses, and epochs motor imagery EEG data from
+    subjects in the BCI Competition III data set IVa.
+    """
+    # Creates the MNE raw object from the subject's file
+    raw = create_raw_object(filepath)
+
+    # Loads the labeled cues where each event occurred
+    # and the associated class labels
+    labeled_positions, class_labels = load_events(filepath)
+
+    # Creates a 2D NumPy array with shape
+    # (labeled positions, zeros, class_labels)
+    events = create_events_array(labeled_positions, class_labels)
+
+    # A dictionary containing class names as keys and
+    # integers as values
+    event_id = {
+        'right': 1,
+        'foot': 2
+    }
+
+    # Creates epoch with a length of 3.5 seconds at each event
+    epochs = create_epoch(raw=raw,
+                          events=events,
+                          event_id=event_id,
+                          tmin=0.0,
+                          tmax=3.5)
+
+    return epochs
