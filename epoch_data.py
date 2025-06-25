@@ -42,6 +42,13 @@ def create_subject_epochs(filepath: str):
     """
     Loads, preprocesses, and epochs motor imagery EEG data from
     subjects in the BCI Competition III data set IVa.
+
+    Args:
+        filepath: The path to the subject's file.
+
+    Returns:
+        An MNE epoch object containing raw EEG data, events,
+        event IDs, and epoch length.
     """
     # Creates the MNE raw object from the subject's file
     raw = create_raw_object(filepath)
