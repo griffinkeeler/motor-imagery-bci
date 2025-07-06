@@ -2,9 +2,10 @@ import mne
 from build_mne_raw import create_raw_object
 from load_events_data import load_events
 from build_mne_events import create_events_array
+from preprocessing import bandpass_filter
 
 
-def create_epoch(raw,
+def create_epoch(filtered_raw,
                  events,
                  event_id,
                  tmin,
@@ -14,7 +15,7 @@ def create_epoch(raw,
     Creates epochs from a raw EEG signal and the event markers.
 
     Args:
-        raw (mne.io.Raw): The continuos EEG data as an MNE Raw object.
+        filtered_raw (mne.io.Raw): The continuos EEG data as an MNE Raw object.
         events (ndarray): A NumPy array of shape (n_events, 3).
         event_id (dict): A dictionary mapping class names (str)
         to event IDs (int).
@@ -26,7 +27,7 @@ def create_epoch(raw,
         aligned to the specified events window.
     """
     epochs = mne.Epochs(
-        raw=raw,
+        raw=filtered_raw,
         events=events,
         event_id=event_id,
         tmin=tmin,
@@ -53,6 +54,10 @@ def create_subject_epochs(filepath: str):
     # Creates the MNE raw object from the subject's file
     raw = create_raw_object(filepath)
 
+    # Applies a bandpass filter to the Raw object that removes
+    # frequencies below 8 Hz and above 30 Hz
+    filtered_raw = bandpass_filter(raw)
+
     # Loads the labeled cues where each event occurred
     # and the associated class labels
     labeled_positions, class_labels = load_events(filepath)
@@ -69,7 +74,7 @@ def create_subject_epochs(filepath: str):
     }
 
     # Creates epoch with a length of 3.5 seconds at each event
-    epochs = create_epoch(raw=raw,
+    epochs = create_epoch(filtered_raw=filtered_raw,
                           events=events,
                           event_id=event_id,
                           tmin=0.0,
