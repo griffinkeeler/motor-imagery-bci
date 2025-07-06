@@ -1,12 +1,9 @@
 # BCI Competition III: TODO Tracker
 ___
 ## In Progress
-- Create a bandpass filter
-  - Finish docstring
-- Implement bandpass filter into epoch module
+- Train classifier on CSP features
 
 ## Upcoming Steps
-- Train classifier on CSP features
 - Separate modules into branches on GitHub
 
 ## Experimental Ideas
