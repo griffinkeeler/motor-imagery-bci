@@ -11,7 +11,6 @@ def bandpass_filter(raw, l_freq=8.0, h_freq=30.0):
 
     Returns:
         A filtered Raw object.
-
     """
     return raw.copy().filter(
         l_freq=l_freq,
