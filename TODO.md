@@ -1,7 +1,7 @@
 # BCI Competition III: TODO Tracker
 ___
 ## In Progress
-- Scale data to volts when creating the Raw object
+- Create a manual CSP pipeline
 
 ## Upcoming Steps
 - Train classifier on CSP features
