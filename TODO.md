@@ -1,9 +1,10 @@
 # BCI Competition III: TODO Tracker
 ___
 ## In Progress
-- Train classifier on CSP features
+- Scale data to volts when creating the Raw object
 
 ## Upcoming Steps
+- Train classifier on CSP features
 - Separate modules into branches on GitHub
 
 ## Experimental Ideas
