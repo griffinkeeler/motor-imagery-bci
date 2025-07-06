@@ -28,7 +28,8 @@ def extract_eeg_data(raw_data: dict):
         (n_channels, n_samples).
     """
 
-    # Convert the datatype from INT16 to a float
+    # Converts the datatype from INT16 to a float,
+    # as well as into volts for MNE
     eeg_data = 0.1 * raw_data['cnt'].astype('float32') * 0.1e-6
 
     # Transposes array to (n_channels, n_samples) for MNE
