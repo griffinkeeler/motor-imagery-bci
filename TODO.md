@@ -12,6 +12,7 @@ ___
 
 ## Bugs or Issues
 - CSP divide by 0 error. May be caused by unfiltered EED data
+  - Potential solution: Create a manual CSP pipeline (current objective)
 
 ## Goals
 - Make reusable pipeline for all subjects
