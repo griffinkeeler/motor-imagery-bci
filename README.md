@@ -1,4 +1,4 @@
-# About this Project
+# Overview
 
 This project utilizes the [BCI Competition III Dataset IVa](https://www.bbci.de/competition/iii/desc_IVa.html) to classify 2 motor imageries:
 - Right hand movements
