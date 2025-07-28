@@ -12,10 +12,14 @@ to classify 2 motor imageries:
 - Right hand movements
 - Right foot movements
 
+
 Data set provided by Fraunhofer FIRST, Intelligent Data Analysis Group
 (Klaus-Robert Müller, Benjamin Blankertz), and Campus Benjamin Franklin
 of the Charité - University Medicine Berlin, Department of Neurology,
 Neurophysics Group (Gabriel Curio).
+ ### What is a BCI?
+A brain-computer interface (BCI) is a system that allows for direct
+communication between the brain and an external device using brain signals.
 ## Features
 
 ---
