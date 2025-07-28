@@ -2,9 +2,7 @@ import mne
 from src.utils.load_eeg_data import load_raw_eeg
 
 
-def create_info_object(ch_names: list,
-                       fs: float,
-                       ch_types: str):
+def create_info_object(ch_names: list, fs: float, ch_types: str):
     """
     Creates the MNE info object holding metadata
     for the EEG recording.
@@ -18,11 +16,7 @@ def create_info_object(ch_names: list,
         An MNE data structure which keeps track of
         various recording details.
     """
-    return mne.create_info(
-        ch_names=ch_names,
-        sfreq=fs,
-        ch_types=ch_types
-    )
+    return mne.create_info(ch_names=ch_names, sfreq=fs, ch_types=ch_types)
 
 
 def create_raw_array(eeg_data, info):
@@ -42,8 +36,7 @@ def create_raw_array(eeg_data, info):
     return mne.io.RawArray(data=eeg_data, info=info)
 
 
-def create_raw_object(filepath: str,
-                      ch_type: str):
+def create_raw_object(filepath: str, ch_type: str):
     """
     Creates the raw MNE object holding continuous EEG data.
 
@@ -59,13 +52,7 @@ def create_raw_object(filepath: str,
 
     # Create the MNE info object containing the subject's EEG recording
     # metadata
-    info = create_info_object(ch_names=channel_names,
-                              fs=sfreq,
-                              ch_types=ch_type)
+    info = create_info_object(ch_names=channel_names, fs=sfreq, ch_types=ch_type)
 
     # Create the MNE RawArray for plotting, filtering, and epoching
-    return create_raw_array(eeg_data=eeg_data,
-                            info=info)
-
-
-
+    return create_raw_array(eeg_data=eeg_data, info=info)
