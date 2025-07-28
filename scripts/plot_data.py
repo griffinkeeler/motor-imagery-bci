@@ -2,9 +2,11 @@ import matplotlib.pyplot as plt
 from src.utils.build_mne_raw import create_raw_object
 
 
-def plot_raw(raw_object,
-             n_channels: int,
-             subject: str,):
+def plot_raw(
+    raw_object,
+    n_channels: int,
+    subject: str,
+):
     """
     Plots the EEG data using the Raw object.
 
@@ -17,18 +19,14 @@ def plot_raw(raw_object,
         Displays an interactive EEG plot window using matplotlib.
     """
     raw_object.plot(
-        n_channels=n_channels,
-        scalings='auto',
-        title='Subject ' + subject + ' EEG Data'
+        n_channels=n_channels, scalings="auto", title="Subject " + subject + " EEG Data"
     )
     plt.show()
 
 
 # Creates a raw object for subject AA
-aa_raw = create_raw_object('data/raw/aa.mat')
+aa_raw = create_raw_object("../data/raw/aa.mat")
 
 
 # Plots the EEG data for subject AA
-plot_raw(raw_object=aa_raw,
-         n_channels=10,
-         subject='AA')
+plot_raw(raw_object=aa_raw, n_channels=10, subject="AA")
