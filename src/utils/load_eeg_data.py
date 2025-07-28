@@ -1,4 +1,6 @@
+import numpy as np
 from scipy.io import loadmat
+
 
 def load_raw_data(file_path: str):
     """
@@ -30,7 +32,7 @@ def extract_eeg_data(raw_data: dict):
 
     # Converts the datatype from INT16 to a float,
     # as well as into microvolts for MNE
-    eeg_data = raw_data['cnt'].astype('float32') * 0.1
+    eeg_data = raw_data["cnt"].astype("float32") * 0.1
 
     # Transposes array to (n_channels, n_samples) for MNE
     eeg_data = eeg_data.T
@@ -56,7 +58,7 @@ def extract_info(raw_data: dict):
             ypos: y-position of electrodes in a 2d-projection.
     """
 
-    return raw_data['nfo'][0,0]
+    return raw_data["nfo"][0, 0]
 
 
 def extract_sampling_rate(info):
@@ -71,7 +73,7 @@ def extract_sampling_rate(info):
         A floating variable of the sampling rate in Hz.
     """
 
-    return float(info['fs'][0,0])
+    return float(info["fs"][0, 0])
 
 
 def extract_channel_labels(info):
@@ -86,7 +88,7 @@ def extract_channel_labels(info):
         A MATLAB cell array of channel labels.
     """
 
-    return info['clab'][0]
+    return info["clab"][0]
 
 
 def convert_channel_labels(raw_channels):
@@ -141,6 +143,80 @@ def load_raw_eeg(filepath: str):
     return eeg_data, sfreq, channel_names
 
 
+def create_events_array(labeled_positions, class_labels):
+    """
+    Takes multiple 1D NumPy arrays and stacks them as
+    columns into a 2D NumPy array.
+
+    Args:
+        labeled_positions: A 1D NumPy array of sample indices.
+
+        class_labels: A 1D NumPy array of class labels
+        as type: int.
+
+    Returns:
+        A 2D NumPy array with the shape
+        (labeled_positions, zeros, class_labels)
+    """
+
+    # Takes multiple 1D arrays and stacks them as
+    # columns into a 2D array
+    events = np.column_stack(
+        (
+            labeled_positions,  # When each trial starts
+            # Creates an array of zeros the length of
+            # class labels used as a placeholder for
+            # MNE's "previous event ID" column
+            np.zeros(len(class_labels), dtype=int),
+            class_labels,  # Type of imagery
+        )
+    )
+
+    return events
+
+
+def load_events(filepath: str):
+    """
+    Loads the labeled cues where each event occurred
+    and the class label for the event from the raw
+    subject data.
+
+    Args:
+        filepath: The path to the MATLAB file.
+
+    Returns:
+        labeled_positions: The sample indices of only labeled trials.
+
+        class_labels: A 1D array of class labels as type: int.
+    """
+
+    # Loads raw data from the subject
+    mat_data = load_raw_data(filepath)
+
+    # Extracts the 'mrk' structure by unwrapping
+    # the MATLAB structure from the NumPy array
+    mrk = mat_data["mrk"][0, 0]
+
+    # The positions of the motor imagery cues flattened
+    # to a 1D NumPy array of shape (280,)
+    positions = mrk["pos"][0]
+
+    # The class labels of the motor imagery cues flattened
+    # to a 1D NumPy array of shape (280,)
+    labels = mrk["y"][0]
+
+    # Creates a boolean array where labeled classes (1 or 2) are
+    # True and NaN classes are False
+    labeled_mask = ~np.isnan(labels)
+
+    # Extracts the sample indices of only labeled trials
+    labeled_positions = positions[labeled_mask]
+
+    # Creates a 1D array of class labels as type: int
+    class_labels = labels[labeled_mask].astype(int)
+
+    return create_events_array(labeled_positions=labeled_positions,
+                               class_labels=class_labels)
 
 
 
