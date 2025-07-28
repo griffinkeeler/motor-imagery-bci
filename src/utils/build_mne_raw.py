@@ -1,5 +1,5 @@
 import mne
-from load_eeg_data import load_raw_eeg
+from src.utils.load_eeg_data import load_raw_eeg
 
 
 def create_info_object(ch_names: list,

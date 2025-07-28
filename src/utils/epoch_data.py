@@ -1,8 +1,8 @@
 import mne
-from build_mne_raw import create_raw_object
-from load_events_data import load_events
-from build_mne_events import create_events_array
-from preprocessing import bandpass_filter
+from src.utils.build_mne_raw import create_raw_object
+from src.utils.load_events_data import load_events
+from src.utils.build_mne_events import create_events_array
+from src.preprocessing.preprocessing import bandpass_filter
 
 
 def create_epoch(filtered_raw,

@@ -1,5 +1,5 @@
 import matplotlib.pyplot as plt
-from build_mne_raw import create_raw_object
+from src.utils.build_mne_raw import create_raw_object
 
 
 def plot_raw(raw_object,
