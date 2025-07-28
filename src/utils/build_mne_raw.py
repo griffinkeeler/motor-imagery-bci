@@ -1,5 +1,5 @@
 import mne
-from src.utils.load_eeg_data import load_raw_eeg
+from src.utils.load_eeg_data import load_raw_eeg, load_events
 
 
 def create_info_object(ch_names: list, fs: float, ch_types: str):
@@ -54,5 +54,11 @@ def create_raw_object(filepath: str, ch_type: str):
     # metadata
     info = create_info_object(ch_names=channel_names, fs=sfreq, ch_types=ch_type)
 
+    # Creates a 2D NumPy array with shape
+    # (labeled positions, zeros, class_labels)
+    events = load_events(filepath=filepath)
+
     # Create the MNE RawArray for plotting, filtering, and epoching
-    return create_raw_array(eeg_data=eeg_data, info=info)
+    raw = create_raw_array(eeg_data=eeg_data, info=info)
+
+    return raw, events
