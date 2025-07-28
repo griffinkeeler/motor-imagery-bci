@@ -1,5 +1,3 @@
-
-
 def bandpass_filter(raw, l_freq=8.0, h_freq=30.0):
     """
     Returns a band-pass filtered copy of the raw EEG signal.
@@ -13,12 +11,5 @@ def bandpass_filter(raw, l_freq=8.0, h_freq=30.0):
         A filtered Raw object.
     """
     return raw.copy().filter(
-        l_freq=l_freq,
-        h_freq=h_freq,
-        fir_design='firwin',
-        skip_by_annotation='edge'
+        l_freq=l_freq, h_freq=h_freq, fir_design="firwin", skip_by_annotation="edge"
     )
-
-
-
-
