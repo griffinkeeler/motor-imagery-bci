@@ -1,5 +1,3 @@
-
-
 def extract_csp_features(epochs):
     """
     Extracts features to be used for CSP.
@@ -21,5 +19,3 @@ def extract_csp_features(epochs):
     y = epochs.events[:, -1]
 
     return X, y
-
-
