@@ -42,12 +42,14 @@ def create_raw_array(eeg_data, info):
     return mne.io.RawArray(data=eeg_data, info=info)
 
 
-def create_raw_object(filepath: str):
+def create_raw_object(filepath: str,
+                      ch_type: str):
     """
     Creates the raw MNE object holding continuous EEG data.
 
     Args:
         filepath: The path to the MATLAB file.
+        ch_type: The type of recording channel (e.g. EEG).
 
     Returns:
         Raw object from a numpy array.
@@ -59,11 +61,11 @@ def create_raw_object(filepath: str):
     # metadata
     info = create_info_object(ch_names=channel_names,
                               fs=sfreq,
-                              ch_types='eeg')
+                              ch_types=ch_type)
 
     # Create the MNE RawArray for plotting, filtering, and epoching
-    raw = create_raw_array(eeg_data=eeg_data,
-                           info=info)
+    return create_raw_array(eeg_data=eeg_data,
+                            info=info)
 
-    return raw
+
 
